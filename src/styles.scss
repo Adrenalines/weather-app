@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "ProximaNova-Regular";
+  src: url(/assets/ProximaNova/ProximaNova-Regular.otf);
+}
+@font-face {
+  font-family: "ProximaNova-Thin";
+  src: url(/assets/ProximaNova/ProximaNova-Thin.otf);
+}
+
+@import url("https://fonts.googleapis.com/css?family=PT+Sans&display=swap");
+
+* {
+  font-family: "ProximaNova-Regular", "PT Sans", "LucidaGrande", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #498cec;
+  font-family: sans-serif;
+  color: white;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-family: "ProximaNova-Thin";
+  font-size: 10em;
+}
+
+h3 {
+  color: #91baf3;
+}
+
+h4 {
+  font-size: 1.3em;
+}
+
+strong {
+  font-weight: bold;
+}
+
+button:active,
+button:focus {
+  outline: none;
+}
+button::-moz-focus-inner {
+  border: 0;
+}
