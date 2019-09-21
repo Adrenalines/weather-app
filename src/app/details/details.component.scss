@@ -1,0 +1,19 @@
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: flex-end;
+  align-items: center;
+  margin-top: 20vh;
+  margin-left: 100px;
+  margin-right: 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail {
+  width: calc(25%-50px);
+}
+
+.about {
+  margin-top: 10px;
+}
