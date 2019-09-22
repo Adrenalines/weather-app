@@ -1,18 +1,29 @@
 <div class="details">
   <div class="detail">
     <h3>Ветер</h3>
-    <h4 class="about wind"><strong>5</strong> м/с, западный</h4>
+    <h4 class="about wind">
+      <strong>{{ weatherService.weather.windSpeed }}</strong> м/с,
+      {{ weatherService.weather.windDirection }}
+    </h4>
   </div>
   <div class="detail">
     <h3>Давление</h3>
-    <h4 class="about pressure"><strong>752</strong> мм рт. ст.</h4>
+    <h4 class="about pressure">
+      <strong>{{ weatherService.weather.pressure }}</strong> мм рт. ст.
+    </h4>
   </div>
   <div class="detail">
     <h3>Влажность</h3>
-    <h4 class="about humidity"><strong>60%</strong></h4>
+    <h4 class="about humidity">
+      <strong>{{ weatherService.weather.humidity }}</strong
+      >%
+    </h4>
   </div>
   <div class="detail">
     <h3>Вероятность дождя</h3>
-    <h4 class="about rainy"><strong>10%</strong></h4>
+    <h4 class="about rainy">
+      <strong>{{ weatherService.weather.rainyChance }}</strong
+      >%
+    </h4>
   </div>
 </div>

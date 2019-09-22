@@ -1,20 +1,51 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import {} from "rxjs";
-import { element } from "protractor";
 
+export interface Weather {
+  temperature: string;
+  description: string;
+  windSpeed: string;
+  windDirection: string;
+  pressure: string;
+  humidity: string;
+  rainyChance: string;
+  city: string;
+}
 @Injectable({
   providedIn: "root"
 })
 export class WeatherService {
   apiKey = "db33b15c576e72832d3016a9fd9f3cbc";
+  apiKeyTranslate =
+    "trnsl.1.1.20190922T101531Z.8fe0ac8c8bcb2c16.929fc01e9d89cdc71cf0d6e0db6f15333ab17aca";
   url: string = "";
   urlRainy: string = "";
+  urlTranslate: string = "";
   locationString: string = "";
 
+  public weather: Weather = {
+    temperature: "--",
+    description: "",
+    windSpeed: "-",
+    windDirection: "",
+    pressure: "--",
+    humidity: "--",
+    rainyChance: "--",
+    city: "Омск"
+  };
+
   constructor(private http: HttpClient) {
-    this.url = `http://api.openweathermap.org/data/2.5/weather?&units=metric&APPID=${this.apiKey}&`;
-    this.urlRainy = `http://api.openweathermap.org/data/2.5/forecast?&units=metric&APPID=${this.apiKey}&`;
+    this.url = `http://api.openweathermap.org/data/2.5/weather?&units=metric&lang=ru&APPID=${this.apiKey}&`;
+    this.urlRainy = `http://api.openweathermap.org/data/2.5/forecast?&units=metric&lang=ru&APPID=${this.apiKey}&`;
+    this.urlTranslate = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${this.apiKeyTranslate}&text=`;
+  }
+
+  getLocationString(location) {
+    if (location.coords) {
+      return `lat=${location.lat}&lon=${location.lon}`;
+    } else {
+      return `q=${location.city}`;
+    }
   }
 
   getLocation() {
@@ -28,11 +59,25 @@ export class WeatherService {
     });
   }
 
-  getLocationString(location) {
-    if (location.coords) {
-      return `lat=${location.lat}&lon=${location.lon}`;
-    } else {
-      return `q=${location.city}`;
+  loadMyLocation() {
+    if (navigator.geolocation) {
+      this.getLocation().then(location =>
+        this.getWeather(location).subscribe(
+          resWeather => {
+            this.getRainy(location).subscribe(
+              resRainy => {
+                this.getWeatherResult(resWeather, resRainy);
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          },
+          err => {
+            console.log(err);
+          }
+        )
+      );
     }
   }
 
@@ -46,10 +91,24 @@ export class WeatherService {
     return this.http.get(this.urlRainy + this.locationString);
   }
 
+  getTranslatedRuCity(city) {
+    return this.http.get(this.urlTranslate + city + "&lang=en-ru");
+  }
+
+  setTranslatedRuCity(res) {
+    this.weather.city = res.text[0];
+  }
+
+  checkCity(input) {}
+
   getWeatherResult(resWeather, resRainy) {
-    let temperature = resWeather.main.temp.toFixed(0);
-    let windSpeed = resWeather.wind.speed.toFixed(1);
-    let windDirection =
+    this.weather.temperature = resWeather.main.temp.toFixed(0);
+    this.weather.description = resWeather.weather[0].description;
+    this.weather.description =
+      this.weather.description.charAt(0).toUpperCase() +
+      this.weather.description.slice(1);
+    this.weather.windSpeed = resWeather.wind.speed.toFixed(0);
+    this.weather.windDirection =
       resWeather.wind.deg > 22 && resWeather.wind.deg <= 68
         ? "северо-восточный"
         : resWeather.wind.deg > 68 && resWeather.wind.deg <= 113
@@ -65,23 +124,21 @@ export class WeatherService {
         : resWeather.wind.deg > 293 && resWeather.wind.deg <= 338
         ? "северо-западный"
         : "северный";
-    let pressure = (resWeather.main.pressure * 0.750062).toFixed(0);
-    let humidity = resWeather.main.humidity.toFixed(0);
+    this.weather.pressure = (resWeather.main.pressure * 0.750062).toFixed(0);
+    this.weather.humidity = resWeather.main.humidity.toFixed(0);
     let rainy = 0;
     resRainy.list.forEach((item, i) => {
       if (i <= 8 && item.rain !== undefined) {
         rainy += item.rain["3h"];
       }
     });
-    let rainyChance = (rainy > 1 ? 100 : 100 * rainy).toFixed(0);
-    return {
-      temperature: temperature,
-      windSpeed: windSpeed,
-      windDirection: windDirection,
-      pressure: pressure,
-      humidity: humidity,
-      rainyChance: rainyChance,
-      city: resWeather.name
-    };
+    this.weather.rainyChance = (rainy > 1 ? 100 : 100 * rainy).toFixed(0);
+    this.getTranslatedRuCity(resWeather.name).subscribe(
+      res => this.setTranslatedRuCity(res),
+      err => {
+        console.log(err);
+        this.weather.city = resWeather.name;
+      }
+    );
   }
 }

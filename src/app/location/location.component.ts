@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { WeatherService } from "../services/weather.service";
 
 @Component({
   selector: "app-location",
@@ -6,7 +7,21 @@ import { Component, OnInit, Input } from "@angular/core";
   styleUrls: ["./location.component.scss"]
 })
 export class LocationComponent implements OnInit {
-  constructor() {}
+  choose: boolean = true;
+
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {}
+
+  loadMyLocation() {
+    this.weatherService.loadMyLocation();
+  }
+
+  loadChosenLocation() {
+    this.choose = true;
+  }
+
+  changeCity() {
+    this.choose = false;
+  }
 }

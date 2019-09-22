@@ -2,6 +2,6 @@
   <div class="temperature-icon">
     <canvas class="icon" width="128" height="128"></canvas>
   </div>
-  <h2 class="temperature-number">{{ weather.temperature }}°</h2>
+  <h2 class="temperature-number">{{ weatherService.weather.temperature }}°</h2>
 </div>
-<h4 class="description">Преимущественно солнечно</h4>
+<h4 class="description">{{ weatherService.weather.description }}</h4>

@@ -1,5 +1,9 @@
 <div class="degree">
   <h3>°</h3>
-  <button class="celsius toggled"><h3>C</h3></button>
-  <button class="fahrenheit"><h3>F</h3></button>
+  <button class="{{ celsius }}" (click)="changeDegree('c')">
+    <h3>C</h3>
+  </button>
+  <button class="{{ fahrenheit }}" (click)="changeDegree('f')">
+    <h3>F</h3>
+  </button>
 </div>
