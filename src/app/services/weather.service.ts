@@ -59,7 +59,7 @@ export class WeatherService {
     });
   }
 
-  loadMyLocation() {
+  loadMyLocationWeather() {
     if (navigator.geolocation) {
       this.getLocation().then(location =>
         this.getWeather(location).subscribe(
@@ -68,14 +68,10 @@ export class WeatherService {
               resRainy => {
                 this.getWeatherResult(resWeather, resRainy);
               },
-              err => {
-                console.log(err);
-              }
+              err => console.log(err)
             );
           },
-          err => {
-            console.log(err);
-          }
+          err => console.log(err)
         )
       );
     }
@@ -91,15 +87,44 @@ export class WeatherService {
     return this.http.get(this.urlRainy + this.locationString);
   }
 
-  getTranslatedRuCity(city) {
-    return this.http.get(this.urlTranslate + city + "&lang=en-ru");
+  getTranslatedCity(city, lang) {
+    return this.http.get(this.urlTranslate + city + "&lang=" + lang);
   }
 
-  setTranslatedRuCity(res) {
+  setTranslatedCity(res) {
     this.weather.city = res.text[0];
   }
 
-  checkCity(input) {}
+  setCityObject(res) {
+    return {
+      coords: false,
+      city: res.text[0]
+    };
+  }
+
+  loadCityWeather(input) {
+    this.getTranslatedCity(input, "ru-en").subscribe(
+      res =>
+        this.getWeather(this.setCityObject(res)).subscribe(
+          resWeather => {
+            this.getRainy(this.setCityObject(res)).subscribe(
+              resRainy => {
+                this.getWeatherResult(resWeather, resRainy);
+              },
+              err => console.log(err)
+            );
+          },
+          err => {
+            alert("Некорректный город");
+            console.log(err);
+          }
+        ),
+      err => {
+        alert("Некорректный город");
+        console.log(err);
+      }
+    );
+  }
 
   getWeatherResult(resWeather, resRainy) {
     this.weather.temperature = resWeather.main.temp.toFixed(0);
@@ -133,12 +158,37 @@ export class WeatherService {
       }
     });
     this.weather.rainyChance = (rainy > 1 ? 100 : 100 * rainy).toFixed(0);
-    this.getTranslatedRuCity(resWeather.name).subscribe(
-      res => this.setTranslatedRuCity(res),
+    this.getTranslatedCity(resWeather.name, "en-ru").subscribe(
+      res => this.setTranslatedCity(res),
       err => {
         console.log(err);
         this.weather.city = resWeather.name;
       }
     );
+  }
+
+  setIcon(icon) {
+    switch (icon) {
+      case "Ясно":
+        return "wi wi-day-sunny";
+      case "Дождь":
+        return "wi wi-rain";
+      case "Легкий дождь":
+        return "wi wi-rain";
+      case "Сильный дождь":
+        return "wi wi-rain";
+      case "Туманно":
+        return "wi wi-fog";
+      case "Туман":
+        return "wi wi wi-fog";
+      case "Пасмурно":
+        return "wi wi-cloudy";
+      case "Облачно":
+        return "wi wi-cloudy";
+      case "Слегка облачно":
+        return "wi wi-day-cloudy";
+      default:
+        return `wi wi-day-sunny`;
+    }
   }
 }

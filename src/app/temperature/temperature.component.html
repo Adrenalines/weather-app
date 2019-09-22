@@ -1,6 +1,9 @@
 <div class="temperature">
   <div class="temperature-icon">
-    <canvas class="icon" width="128" height="128"></canvas>
+    <i
+      id="img"
+      [class]="weatherService.setIcon(weatherService.weather.description)"
+    ></i>
   </div>
   <h2 class="temperature-number">{{ weatherService.weather.temperature }}°</h2>
 </div>

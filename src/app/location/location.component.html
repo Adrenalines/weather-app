@@ -10,7 +10,7 @@
 
 <ng-template #inputCity>
   <div class="change">
-    <input type="text" name="city" id="city" />
+    <input type="text" name="city" id="city" [(ngModel)]="input" />
     <button id="ok" (click)="loadChosenLocation()">OK</button>
   </div>
 </ng-template>

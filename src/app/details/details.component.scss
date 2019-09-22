@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   align-self: flex-end;
   align-items: center;
-  margin-top: 20vh;
+  margin-top: 18vh;
   margin-left: 100px;
   margin-right: 100px;
   justify-content: space-between;
@@ -16,4 +16,15 @@
 
 .about {
   margin-top: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .details {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  .detail {
+    padding-bottom: 50px;
+    width: 50%;
+  }
 }

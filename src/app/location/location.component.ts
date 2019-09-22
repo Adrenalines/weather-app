@@ -8,16 +8,20 @@ import { WeatherService } from "../services/weather.service";
 })
 export class LocationComponent implements OnInit {
   choose: boolean = true;
+  input: string = "";
+  city: string = "";
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {}
 
   loadMyLocation() {
-    this.weatherService.loadMyLocation();
+    this.weatherService.loadMyLocationWeather();
   }
 
   loadChosenLocation() {
+    if (this.input === "") return;
+    this.weatherService.loadCityWeather(this.input);
     this.choose = true;
   }
 

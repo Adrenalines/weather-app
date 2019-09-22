@@ -34,19 +34,27 @@
   flex-direction: column;
 }
 
-.location-choose {
-  padding-left: 2px;
-  cursor: pointer;
-}
-
 .location-change {
   display: flex;
   margin-top: 10px;
 }
 
+.location-choose {
+  padding-left: 2px;
+  cursor: pointer;
+}
+
+.location-choose:hover {
+  color: darken(#91baf3, 5%);
+}
+
 .location-my {
   margin-left: 40px;
   cursor: pointer;
+}
+
+.location-my:hover {
+  color: darken(#91baf3, 5%);
 }
 
 .location-my::before {

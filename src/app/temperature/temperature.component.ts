@@ -9,6 +9,6 @@ export class TemperatureComponent implements OnInit {
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
-    this.weatherService.loadMyLocation();
+    this.weatherService.loadMyLocationWeather();
   }
 }

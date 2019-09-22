@@ -36,3 +36,21 @@
   border-left: none !important;
   border-radius: 0 30% 30% 0;
 }
+
+@media screen and (max-width: 767px) {
+  .degree {
+    margin: 5px;
+    position: absolute;
+    top: 20px;
+    left: 70%;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .degree {
+    left: 60%;
+  }
+  .degree button {
+    padding: 2px 6px 2px 6px;
+  }
+}

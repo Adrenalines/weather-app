@@ -7,23 +7,17 @@ import { WeatherService } from "../services/weather.service";
   styleUrls: ["./degree.component.scss"]
 })
 export class DegreeComponent implements OnInit {
-  celsius;
-  fahrenheit;
   constructor(private weatherService: WeatherService) {}
-
-  ngOnInit() {
-    this.celsius = "celsius toggled";
-    this.fahrenheit = "fahrenheit";
-  }
+  isCelsius: boolean = true;
+  ngOnInit() {}
 
   changeDegree(degree) {
     if (
       degree === "f" &&
       !isNaN(+this.weatherService.weather.temperature) &&
-      !this.fahrenheit.includes("toggled")
+      this.isCelsius
     ) {
-      this.celsius = "celsius";
-      this.fahrenheit = "fahrenheit toggled";
+      this.isCelsius = false;
       this.weatherService.weather.temperature = (
         (+this.weatherService.weather.temperature * 9) / 5 +
         32
@@ -31,10 +25,9 @@ export class DegreeComponent implements OnInit {
     } else if (
       degree === "c" &&
       !isNaN(+this.weatherService.weather.temperature) &&
-      !this.celsius.includes("toggled")
+      !this.isCelsius
     ) {
-      this.celsius = "celsius toggled";
-      this.fahrenheit = "fahrenheit";
+      this.isCelsius = true;
       this.weatherService.weather.temperature = (
         (+this.weatherService.weather.temperature - 32) *
         (5 / 9)

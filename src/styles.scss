@@ -56,3 +56,27 @@ button:focus {
 button::-moz-focus-inner {
   border: 0;
 }
+
+@media screen and (max-width: 800px) {
+  body {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  body {
+    font-size: 0.8em;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  body {
+    font-size: 0.7em;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  body {
+    font-size: 0.6em;
+  }
+}
