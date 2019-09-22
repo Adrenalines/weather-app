@@ -1,0 +1,28 @@
+.location {
+  margin: 15px;
+  box-sizing: border-box;
+}
+
+.location {
+  flex-direction: column;
+}
+
+.location-choose {
+  padding-left: 2px;
+}
+
+.location-change {
+  display: flex;
+  margin-top: 10px;
+}
+
+.location-my {
+  margin-left: 40px;
+}
+
+.location-my::before {
+  margin-right: 10px;
+  content: "➤";
+  display: inline-block;
+  transform: rotate(-55deg) scale(1.5, 1.5);
+}

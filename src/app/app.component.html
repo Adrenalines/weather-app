@@ -1,42 +1,9 @@
 <!-- Weather-->
 <div class="header">
-  <div class="location">
-    <h1 class="location-city">Омск</h1>
-    <div class="location-change">
-      <h3 class="location-choose">Сменить город</h3>
-      <h3 class="location-my">Мое местоположение</h3>
-    </div>
-  </div>
-  <div class="degree">
-    <h3>°</h3>
-    <button class="celsius toggled"><h3>C</h3></button>
-    <button class="fahrenheit"><h3>F</h3></button>
-  </div>
+  <app-location></app-location>
+  <app-degree></app-degree>
 </div>
 
-<div class="temperature">
-  <div class="temperature-icon">
-    <canvas class="icon" width="128" height="128"></canvas>
-  </div>
-  <h2 class="temperature-number">19</h2>
-</div>
-<h4 class="description">Преимущественно солнечно</h4>
+<app-temperature></app-temperature>
 
-<div class="footer">
-  <div class="detail">
-    <h3>Ветер</h3>
-    <h4 class="about wind"><strong>5</strong> м/с, западный</h4>
-  </div>
-  <div class="detail">
-    <h3>Давление</h3>
-    <h4 class="about pressure"><strong>752</strong> мм рт. ст.</h4>
-  </div>
-  <div class="detail">
-    <h3>Влажность</h3>
-    <h4 class="about humidity"><strong>60%</strong></h4>
-  </div>
-  <div class="detail">
-    <h3>Вероятность дождя</h3>
-    <h4 class="about rainy"><strong>10%</strong></h4>
-  </div>
-</div>
+<app-details></app-details>

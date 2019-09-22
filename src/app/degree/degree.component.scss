@@ -1,0 +1,38 @@
+.degree {
+  margin: 25px;
+  box-sizing: border-box;
+}
+
+.degree h3 {
+  display: inline;
+  margin: 0 5px 0 5px;
+  font-weight: bold;
+}
+
+.degree button {
+  border: 2px solid #a7c7f5;
+  padding: 5px 13px 5px 13px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.degree button:hover,
+.degree .toggled {
+  background-color: #6da3ef;
+}
+
+.degree button:hover h3,
+.degree .toggled h3 {
+  color: #fff;
+}
+
+.celsius {
+  border-right: none !important;
+  margin-left: 5px;
+  border-radius: 30% 0 0 30%;
+}
+
+.fahrenheit {
+  border-left: none !important;
+  border-radius: 0 30% 30% 0;
+}
